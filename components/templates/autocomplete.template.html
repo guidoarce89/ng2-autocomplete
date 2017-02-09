@@ -1,0 +1,25 @@
+<input type="text" class="form-control" [value]="foundData" #input
+       (keyup)="prepareData($event, input.value)"
+       (focus)="replaceToSearchTerm()">
+
+<template [ngIf]="searching">
+    <template [ngIf]="loadingData">
+        <ul class="dropdown-menu search-results">
+            <li>
+                <a><i class="fa fa-spinner fa-spin"></i>&nbsp;Buscando...</a>
+            </li>
+        </ul>
+    </template>
+
+    <template [ngIf]="!loadingData">
+        <ul class="dropdown-menu search-results">
+            <li *ngIf="allowNew" style="cursor: pointer;" (click)="addData()">
+                <a><strong>Agregar nuevo&nbsp;<i class="fa fa-angle-double-right fa-fw"></i></strong></a>
+            </li>
+
+            <li *ngFor="let data of searchData" style="cursor: pointer;" (click)="selectData(data)">
+                <a>{{data[propToShow]}}</a>
+            </li>
+        </ul>
+    </template>
+</template>
